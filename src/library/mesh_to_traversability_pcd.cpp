@@ -1,7 +1,35 @@
+/*--
+ *      This node compute the traversability from the pointCloud map from voxblox or file
+ *      Using only pcl tools
+ *
+ *      Subscrib :
+ *          /voxblox_node/mesh_pointcloud point cloud from voxblox reconstruction
+ *
+ *      Publish :
+ *          /image_traversability the binary image of Traversability
+ *          /normals markers to visualize the normals on rviz
+ *          /point_cloud_map the map as a point cloud, to isualize on rviz if load from file
+ *          /point_cloud_traversability the traversability map as a point cloud
+ *
+ *      Service :
+ *          /load_mesh_srv to trigger the meshCallBack without msg (used when load from file)
+ *          /publish_srv to ask for the traversability if the auto_pub param is not true
+ *
+ *      Parameters :
+ *          verbose to show steps, time consuming, image processed
+ *          automatic_pub if false you have to call the service to publish info
+ *          image_scale_ resolution of the image (pixels/m)
+ *          load_from_file if you want to load mesh from file instead of voxblox
+ *          z_threshold_ The value of the threshold on traverasbility altitude
+ *          file The path to the file you want to use
+ *
+ *      Approach :
+ *          1) convert and filtter entry
+ *          2) compute normals using pcl tools
+ *          3) compute traversability by thresholding point cloud on slope and altitude
+ *          4) filtering traversability images
+ */
 #include <mesh_to_traversability_pcd/mesh_to_traversability_pcd.hpp>
-
-#include <pcl_conversions/pcl_conversions.h>
-#include <pcl_ros/point_cloud.h>
 
 namespace mesh_to_traversability {
 
@@ -27,8 +55,7 @@ MeshToPCDConverter::MeshToPCDConverter(ros::NodeHandle nh,
 }
 
 void MeshToPCDConverter::subscribeToTopics() {
-    mesh_sub_ =
-            nh_.subscribe("mesh", 10, &MeshToPCDConverter::meshCallback, this);
+    mesh_sub_ = nh_.subscribe("mesh", 10, &MeshToPCDConverter::meshCallback, this);
 }
 
 void MeshToPCDConverter::advertiseTopics() {

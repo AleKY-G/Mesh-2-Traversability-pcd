@@ -14,6 +14,7 @@
 #include <pcl/kdtree/kdtree_flann.h>
 #include <pcl/features/normal_3d.h>
 #include <pcl_msgs/PolygonMesh.h>
+#include <pcl_conversions/pcl_conversions.h>
 
 #include <pcl/filters/extract_indices.h>
 #include <pcl/filters/filter.h>
