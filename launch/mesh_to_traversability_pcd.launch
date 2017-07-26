@@ -1,10 +1,10 @@
 <launch>
 <!-- ===== Play rosbag Grass Zurich========================================================
-<include file="$(find stitching_traversability_graph)/launch/rosbag_play1.launch"/>
+<include file="$(find mesh_to_traversability_pcd)/launch/rosbag_play1.launch"/>
 <arg name="stereo_params_camchain" default="$(find mav_startup)/parameters/mavs/ibis/camchain_p22031.yaml"/>  -->
 
 <!-- ===== Play rosbag building Geneva ======================================================== -->
-<include file="$(find stitching_traversability_graph)/launch/rosbag_play2.launch"/> 
+<include file="$(find mesh_to_traversability_pcd)/launch/rosbag_play2.launch"/> 
 <arg name="stereo_params_camchain" default="$(find erl_playback)/cfg/2017-05-23/camchain_p22031.yaml"/>
 
 <!-- Args -->

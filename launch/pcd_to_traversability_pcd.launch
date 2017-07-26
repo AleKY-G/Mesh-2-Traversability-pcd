@@ -1,9 +1,12 @@
 <launch>
 
-<!-- ===== Conversion to height image and compute traversability ==================== -->
+<!-- ===== Compute traversability from pointCloud ==================== -->
 <node name="mesh_to_traversability_pcd_node" pkg="mesh_to_traversability_pcd" type="mesh_to_traversability_pcd_node" output="screen" >
+
 <param name="load_from_file" value="true" />
-<param name="file" value="/home/eth/mesh.pcd"/>
+<param name="file" value="$(find mesh_to_traversability_pcd)/pcd/mesh_building_geneva.pcd"/>
+<!-- <param name="file" value="$(find mesh_to_traversability_pcd)/pcd/mesh_grass_zurich.pcd"/> -->
+
 <param name="verbose" value="true"/>
 <param name="z_threshold" value="1.5"/>
 <param name="image_scale" value="20"/>
@@ -12,6 +15,6 @@
 
 
 <!-- ===== RVIZ =================================== -->
-<node name="rviz" pkg="rviz" type="rviz"/>
+<node name="rviz" pkg="rviz" type="rviz" args="-d $(find mesh_to_traversability_pcd)/rviz/load_pcd.rviz"/>
 
 </launch>
