@@ -310,14 +310,14 @@ void MeshToPCDConverter::meshCallback(const pcl::PointCloud<pcl::PointXYZRGB>& m
 }
 
 
-//-------------- Methodes annexes ---------------------------//
+//-------------- Methodes usefull ---------------------------//
 std::string fileType(std::string fichier)
 {
-    // on découpe par rapport au "/" et on prend le dernier morceau
+    // cut on "/" and we take the last part
     std::vector<std::string> tab;
     boost::split(tab, fichier, boost::is_any_of("/"));
     std::string nameExtension = tab[tab.size()-1];
-    // on redécoupe le dernier morceau pour lit l'extention, on prend le dernier morceau
+    // we read the extension by cut the name on the dot
     tab.clear();
     boost::split(tab, nameExtension, boost::is_any_of("."));
     std::string type = tab[1];
