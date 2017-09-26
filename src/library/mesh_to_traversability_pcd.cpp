@@ -124,8 +124,12 @@ void MeshToPCDConverter::meshCallback(const pcl::PointCloud<pcl::PointXYZRGB>& m
     for (size_t i = 0; i < cloud->points.size(); ++i)
     {
       pcl::PointXYZ point = cloud->points[i];
-      if(point.data[2]>-0.6 && point.data[2] < z_threshold_) // point too low (under the ground)
-          indices_in->indices.push_back(i);
+      if(point.data[2]<-0.6) continue;
+      //else if(point.data[2] > z_threshold_) continue;// point too low (under the ground)
+      else if(point.data[0]<-30 || point.data[0]>20 || point.data[1]<-20 || point.data[1]>20) continue; // area limit
+
+      // if everithing is good
+      indices_in->indices.push_back(i);
     }
     eifilter.setIndices(indices_in);
     eifilter.filterDirectly(cloud);
@@ -135,7 +139,7 @@ void MeshToPCDConverter::meshCallback(const pcl::PointCloud<pcl::PointXYZRGB>& m
 
     if(cloud->points.size() < 100) return;
 
-    //---------------------------------------- treatment of the point cloud ---------------------------------------------------//
+//---------------------------------------- treatment of the point cloud ---------------------------------------------------//
     /// Normal estimation
     if (verbose_) ROS_INFO("Normals computation");
     time1 = ros::Time::now();
@@ -165,11 +169,12 @@ void MeshToPCDConverter::meshCallback(const pcl::PointCloud<pcl::PointXYZRGB>& m
     // create traversability pointcloud from segmentation on normal_z
     pcl::copyPointCloud(*cloud_with_normals,*cloud_freespace);
     pcl::PointIndices::Ptr indices_traversability (new pcl::PointIndices());
+    /// Here check traversability !
     for (int i = 0; i < cloud_freespace->points.size(); ++i)
     {
       pcl::PointNormal point = cloud_freespace->points[i];
       // segmentation from steep and altitude
-      if(point.normal[2] > 0.9 && point.data[2] < z_threshold_ )
+      if(point.normal[2] > 0.95 && point.data[2] < z_threshold_ )
           indices_traversability->indices.push_back(i);
     }
     eifilter2.setIndices(indices_traversability);
