@@ -4,8 +4,9 @@
 <node name="mesh_to_traversability_pcd_node" pkg="mesh_to_traversability_pcd" type="mesh_to_traversability_pcd_node" output="screen" >
 
 <param name="load_from_file" value="true" />
-<param name="file" value="/home/eth/Partage_VM/Tradr-Montelebretti-Review-share/PLY-UAV/surface-L2-clean-hand-aligned.ply"/>
 <!-- <param name="file" value="$(find mesh_to_traversability_pcd)/pcd/mesh_grass_zurich.pcd"/> -->
+<!-- <param name="file" value="/home/eth/Partage_VM/Tradr-Montelebretti-Review-share/PLY-UAV/surface-L2-clean-hand-aligned.ply"/> -->
+<param name="file" value="/home/eth/Partage_VM/Tradr-Montelebretti-Review-share/PLY-UGV/charlie_1_long.ply"/>
 
 <param name="verbose" value="true"/>
 <param name="z_threshold" value="0.5"/>

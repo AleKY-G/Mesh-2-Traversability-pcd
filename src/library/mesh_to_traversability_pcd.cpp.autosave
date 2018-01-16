@@ -178,7 +178,7 @@ void MeshToPCDConverter::meshCallback(const pcl::PointCloud<pcl::PointXYZRGB>& m
           indices_traversability->indices.push_back(i);
     }
     eifilter2.setIndices(indices_traversability);
-    eifilter2.filterDirectly(cloud_freespace);
+    eifilter2.filterDirectly(cloud_freespace);r
     // Remove Nan in pointCloud
     std::vector<int> indices;
     pcl::removeNaNFromPointCloud(*cloud_freespace,*cloud_freespace,indices);
